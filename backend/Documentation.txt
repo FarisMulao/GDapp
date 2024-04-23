@@ -1,0 +1,106 @@
+/createaccount -- POST
+	Headers:
+		"Username"
+		"Password"
+		"Email"
+		"GameAccountID" (optional)
+	
+	Return codes:
+		Invalid parameters: 400
+		Username already exists: 400, "user account already exists"
+		Game account Id provided but cant be found: 404, "Cant Find Game Account"
+		Success : 200
+
+/login -- POST
+	Headers:
+		"Username"
+		"Password"
+	Return codes:
+		incorrect headers: 400
+		incorrect login : 404
+		success: 200, text body contains token needed for authenticated requests
+
+/addRating -- POST
+	Headers:
+		"Token"
+	Form Data:
+		"Levelid"
+		"Enjoyment"
+		"Difficultyrating"
+		"Usertimerating" (only provide if the level is a platformer)
+	Return codes:
+		incorrect headers: 400
+		invalid token: 401
+		level does not exist: 404
+		rating and level type mismatch: 400, "Incorrect Level Type for Rating Submission"
+		try to add a duplicate rating: 400, "Rating already created for this level"
+		success: 200
+
+/deleteRating -- POST
+	Headers:
+		"Token"
+	Form Data:
+		"Levelid"
+	Return codes:
+		incorrect headers: 400
+		invalid token: 401
+		rating doesn't exist: 404, "Rating does not exist"
+		success: 200
+
+/getRatings -- GET
+	Headers:
+		"Levelid"
+	Return codes:
+		incorrect headers: 400
+		levelid does not exist: 404
+		success: 200, body contains most recent 10 ratings
+
+/getLevelInformation -- GET
+	Headers:
+		"Levelid"
+	Return codes:
+		incorrect headers: 400
+		level id does not exist: 404
+		success: 200, body contains a LEVEL object (defined at bottom of doc)
+
+/admin/addLevel -- POST
+	Headers:
+		"Token"
+		"Levelid"
+	Return codes: 
+		incorrect headers: 400
+		invalid token: 401
+		user is not an admin: 403
+		level id not found: 404
+		level id already in database: 400, "level already in database"
+		success: 200
+
+/filterLevel -- GET
+	Headers:
+		"Creatorname" (optional)
+		"Lowdifficultyrating" and "Highdifficultyrating" (optional)
+	Return codes:
+		incorrect arrangment of search parameters: 400
+		creatorname not found: 404, "creator name not found"
+		success: 200, body is a list of MINI_LEVEL objects
+
+LEVEL object:
+	{	"levelName": 
+		"difficulty":
+		"distinction":
+		"creator_username":
+		"length":
+		"wrUsername":
+		"wrTime":
+		"avgTime":
+		"is_platformer":
+		"songs": []
+	}
+
+MINI_LEVEL object:
+	{
+		"levelId":
+		"levelName":
+		"difficulty":
+	}
+ 
