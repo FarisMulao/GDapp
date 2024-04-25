@@ -62,3 +62,10 @@ INSERT INTO `cs2300project`.`user`
 VALUES
 ("admin", "admin@admin.com", 1, "adminpassword", NULL);
 
+INSERT INTO `cs2300project`.`song` 
+(`song_id`,
+`song_name`,
+`artist_name`)
+VALUES
+("12345", "song name", "artist name");
+

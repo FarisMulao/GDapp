@@ -16,6 +16,7 @@ storedLevelId = 93988001
 storedPlatformerLevelId = 104043964
 unstoredLevelId = 28255647
 unstoredLevelPlatformerId = 97459884
+storedSongId = 12345
 # TODO connect initialization sql file
 
 
@@ -246,3 +247,75 @@ print("try to add level by rating")
 test = requests.get("http://localhost:5000/filterLevel", headers={"Lowdifficultyrating": "2", "Highdifficultyrating": "8"})
 assert(test.status_code == 200)
 assert(len(eval(test.text)) == 2)
+
+### ---- MANUAL SONG TEST
+
+print("manually add song token not provided")
+test = requests.post("http://localhost:5000/admin/manualAddSong")
+assert(test.status_code == 400)
+assert(test.text == "Token not provided")
+
+print("manually add song invalid token")
+test = requests.post("http://localhost:5000/admin/manualAddSong", headers={"Token": token + "d"})
+assert(test.status_code == 401)
+assert(test.text == "Invalid Token")
+
+print("manually add song not admin")
+test = requests.post("http://localhost:5000/admin/manualAddSong", headers={"Token": token})
+assert(test.status_code == 403)
+assert(test.text == "Admin permission required")
+
+print("manually add song wrong headers")
+test = requests.post("http://localhost:5000/admin/manualAddSong", headers={"Token": adminToken})
+assert(test.status_code == 400)
+assert(test.text == "invalid headers")
+
+print("manually add song song already in database")
+test = requests.post("http://localhost:5000/admin/manualAddSong", headers={"Token": adminToken, "Songid": str(storedSongId), "Songname": "random", "Songartist": "random"})
+assert(test.status_code == 400)
+assert(test.text == "song already in database")
+
+print("manually add song success")
+test = requests.post("http://localhost:5000/admin/manualAddSong", headers={"Token": adminToken, "Songid": "12232323", "Songname": "random", "Songartist": "random"})
+assert(test.status_code == 200)
+
+### ---- MANUAL SONG LEVEL TEST
+
+print("manually add song level no token")
+test = requests.post("http://localhost:5000/admin/manualAddSongLevel")
+assert(test.status_code == 400)
+assert(test.text == "Token not provided")
+
+print("manually add song level Invalid token")
+test = requests.post("http://localhost:5000/admin/manualAddSongLevel", headers={"Token": token+"d"})
+assert(test.status_code == 401)
+assert(test.text == "Invalid Token")
+
+print("manually add song level not admin")
+test = requests.post("http://localhost:5000/admin/manualAddSongLevel", headers={"Token": token})
+assert(test.status_code == 403)
+assert(test.text == "Admin permission required")
+
+print("manually add song level wrong headers")
+test = requests.post("http://localhost:5000/admin/manualAddSongLevel", headers={"Token": adminToken})
+assert(test.status_code == 400)
+assert(test.text == "invalid headers")
+
+print("manually add song level level id not in db")
+test = requests.post("http://localhost:5000/admin/manualAddSongLevel", headers={"Token": adminToken, "Levelid": str(storedLevelId + 1), "Songid": str(storedSongId)})
+assert(test.status_code == 400)
+assert(test.text == "level id not found")
+
+print("manually add song level song id not in db")
+test = requests.post("http://localhost:5000/admin/manualAddSongLevel", headers={"Token": adminToken, "Levelid": str(storedLevelId), "Songid": str(storedSongId + 1)})
+assert(test.status_code == 400)
+assert(test.text == "song id not found")
+
+print("manually add song level success")
+test = requests.post("http://localhost:5000/admin/manualAddSongLevel", headers={"Token": adminToken, "Levelid": str(storedLevelId), "Songid": str(storedSongId)})
+assert(test.status_code == 200)
+
+print("manually add song level combination already exists")
+test = requests.post("http://localhost:5000/admin/manualAddSongLevel", headers={"Token": adminToken, "Levelid": str(storedLevelId), "Songid": str(storedSongId)})
+assert(test.status_code == 400)
+assert(test.text == "song level relation already exists")

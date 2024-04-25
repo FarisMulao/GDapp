@@ -366,10 +366,12 @@ def getLevelInformation():
         finalSongList = []
     else:
         cursor = mysql.connection.cursor()
-        songIdList = []
+        songIdString = "("
         for song in songIds:
-            songIdList.append("'" + song[0] + "'")
-        cursor.execute(f'SELECT song_name, artist_name FROM cs2300project.song WHERE song_id IN {songIdList}')
+            songIdString += "\'" + str(song[0]) + "\', "
+        songIdString = songIdString[:-2] + ")"
+        print(f"SELECT song_name, artist_name FROM cs2300project.song WHERE song_id IN {songIdString}")
+        cursor.execute(f"SELECT song_name, artist_name FROM cs2300project.song WHERE song_id IN {songIdString}")
         songData = cursor.fetchall()
         finalSongList = []
         for song in songData:
@@ -487,7 +489,7 @@ def addLevel():
 
     # Run Insert
     cursor = mysql.connection.cursor()
-    print(f"INSERT INTO cs2300project.level (level_id, level_name, difficulty, distinction, creator_id, length, wr_player_id, wr_time, avg_time, is_platformer) VALUES ({levelId}, \'{title}\', {difficulty}, {distinction}, {creatorId}, {length}, NULL, NULL, NULL, {int(is_platformer)});")
+    #print(f"INSERT INTO cs2300project.level (level_id, level_name, difficulty, distinction, creator_id, length, wr_player_id, wr_time, avg_time, is_platformer) VALUES ({levelId}, \'{title}\', {difficulty}, {distinction}, {creatorId}, {length}, NULL, NULL, NULL, {int(is_platformer)});")
     cursor.execute(f"INSERT INTO cs2300project.level (level_id, level_name, difficulty, distinction, creator_id, length, wr_player_id, wr_time, avg_time, is_platformer) VALUES ({levelId}, \'{title}\', {difficulty}, {distinction}, {creatorId}, {length}, NULL, NULL, NULL, {int(is_platformer)});")
     try:
         mysql.connection.commit()
@@ -495,6 +497,210 @@ def addLevel():
         print("error during level addition")
         print(e)
         return '', 500
+    #return "", 200
+
+    # Now, pull song
+    songName = re.findall("\| Song: ([0-9a-zA-Z \-\(\)]+) \([0-9]+\)\"", idRequest.text)
+    if len(songName) == 0:
+        print("trouble getting song name for level id: " + str(levelId))
+        return '', 500
+    songName = songName[0]
+
+    songId = re.findall("\| Song: [0-9a-zA-Z \-\(\)]+ \(([0-9]+)\)\"", idRequest.text)
+    if len(songId) == 0:
+        print("trouble getting song id for level id: " + str(levelId))
+        return '', 500
+    songId = songId[0]
+
+    artistName = re.findall(">By: ([a-zA-Z0-9 \-\(\)]+)<", idRequest.text)
+    if len(artistName) == 0:
+        print("trouble getting artist name")
+        print(re.findall("\"By: ([a-zA-Z0-9 \-])"))
+        return '', 500
+    print(artistName)
+    artistName = artistName[0]
+
+    # check if song already exists or not
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT song_id FROM cs2300project.song WHERE song_id={songId}")
+    data = cursor.fetchall()
+    if len(data) == 0:
+        # song not found, so add it
+        print(f"INSERT INTO cs2300project.song (song_id, song_name, artist_name) VALUES ({songId}, \'{songName}\', \'{artistName}\'")
+        cursor = mysql.connection.cursor()
+        cursor.execute(f"INSERT INTO cs2300project.song (song_id, song_name, artist_name) VALUES ({songId}, \'{songName}\', \'{artistName}\');")
+        try:
+            mysql.connection.commit()
+        except Exception as e:
+            print("error during song")
+            print(e)
+            return '', 500
+
+    # add relation between song id and level id
+    print(f"INSERT INTO cs2300project.level_song (level_id, song_id) VALUES ({levelId}, {songId})")
+    cursor.execute(f"INSERT INTO cs2300project.level_song (level_id, song_id) VALUES ({levelId}, {songId})")
+    try:
+        mysql.connection.commit()
+    except Exception as e:
+        print("Error during song")
+        print(e)
+        return '', 500
+
+    return '', 200
+
+@app.route("/admin/manualAddSong", methods=["POST"])
+def manualAddSong():
+    if "Token" in request.headers.keys():
+        username = verifyAuth(request.headers.get("Token"))
+    else:
+        return "Token not provided", 400
+    if username == "":
+        return "Invalid Token", 401
+
+    # check if user is an admin
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT is_admin FROM cs2300project.user WHERE username=\'{username}\'")
+    data = cursor.fetchall()
+    if len(data) == 0:
+        print("Somehow, the user wasnt found")
+        return "", 500
+    if data[0][0] == 0:
+        return "Admin permission required", 403
+
+    # check that headers provided
+    if "Songid" not in request.headers or "Songname" not in request.headers or "Songartist" not in request.headers:
+        return "invalid headers", 400
+    songId = int(request.headers.get("Songid"))
+    songName = request.headers.get("Songname")
+    songArtist = request.headers.get("Songartist")
+
+    # make sure song id doesnt already exist
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT song_id FROM cs2300project.song WHERE song_id={songId}")
+    if len(cursor.fetchall()) != 0:
+        return "song already in database", 400
+
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"INSERT INTO cs2300project.song (song_id, song_name, artist_name) VALUES ({songId}, \'{songName}\', \'{songArtist}\')")
+    try:
+        mysql.connection.commit()
+    except Exception as e:
+        print("error during song addition")
+        print(e)
+        return '', 500
     return "", 200
 
+@app.route("/admin/manualAddSongLevel", methods=['POST'])
+def manualAddSongLevel():
+    if "Token" in request.headers.keys():
+        username = verifyAuth(request.headers.get("Token"))
+    else:
+        return "Token not provided", 400
+    if username == "":
+        return "Invalid Token", 401
+
+    # check if user is an admin
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT is_admin FROM cs2300project.user WHERE username=\'{username}\'")
+    data = cursor.fetchall()
+    if len(data) == 0:
+        print("Somehow, the user wasnt found")
+        return "", 500
+    if data[0][0] == 0:
+        return "Admin permission required", 403
+
+    # check that headers are provided
+    if "Levelid" not in request.headers or "Songid" not in request.headers:
+        return "invalid headers", 400
+    levelId = int(request.headers.get("Levelid"))
+    songId = int(request.headers.get("Songid"))
+
+    # check that the level exists
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT level_id FROM cs2300project.level WHERE level_id={levelId}")
+    if len(cursor.fetchall()) == 0:
+        return "level id not found", 400
+
+    # check that the song exists
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT song_id FROM cs2300project.song WHERE song_id={songId}")
+    if len(cursor.fetchall()) == 0:
+        return "song id not found", 400
+
+    # check that the combination doesnt already exist
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT song_id FROM cs2300project.level_song WHERE song_id={songId} AND level_id={levelId}")
+    if len(cursor.fetchall()) != 0:
+        return "song level relation already exists", 400
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"INSERT INTO cs2300project.level_song (level_id, song_id) VALUES ({levelId}, {songId})")
+    try:
+        mysql.connection.commit()
+    except Exception as e:
+        print("error during song level addition")
+        print(e)
+        return '', 500
+    return "", 200
+
+@app.route("/admin/addWr", headers=['POST'])
+def adminAddWr():
+    if "Token" in request.headers.keys():
+        username = verifyAuth(request.headers.get("Token"))
+    else:
+        return "Token not provided", 400
+    if username == "":
+        return "Invalid Token", 401
+
+    # check if user is an admin
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT is_admin FROM cs2300project.user WHERE username=\'{username}\'")
+    data = cursor.fetchall()
+    if len(data) == 0:
+        print("Somehow, the user wasnt found")
+        return "", 500
+    if data[0][0] == 0:
+        return "Admin permission required", 403
+
+    # check that headers are provided
+    if "Levelid" not in request.headers or "Wrid" not in request.headers:
+        return "invalid headers", 400
+    levelId = int(request.headers.get("Levelid"))
+    wrId = int(request.headers.get("Wrid"))
+
+    # check that level id exists. if so, get platformer status
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT is_platformer FROM cs2300project.level WHERE level_id={levelId}")
+    data = cursor.fetchall()
+    if len(data) == 0:
+        return "level id not found", 400
+    isPlatformer = data[0][0]
+
+    # check if wrTime field is present and if it should be present
+    if (int(bool(isPlatformer)) + int(bool("Wrtime" in request.headers)) == 1):
+        return 'conflict between level type and wrtime', 400
+    wrTime = int(request.headers.get("Wrtime"))
+
+    # check that account exists. if not, try to add it
+    cursor = mysql.connection.cursor()
+    cursor.execute(f'SELECT player_id FROM cs2300project.game_account WHERE player_id={wrId}')
+    data = cursor.fetchall()
+    if len(data) == 0:
+        # attempt to add geme id
+        if not getGameAccount(wrId):
+            print("found creator id, but couldnt find creator")
+            return 'Error finding account id', 400
+
+    # edit level entry
+    cursor = mysql.connection.cursor()
+    if isPlatformer:
+        cursor.execute(f"UPDATE cs2300project.level SET wr_player_id = {wrId}, wr_time = {wrTime} WHERE level_id = {levelId}")
+    else:
+        cursor.execute(f"UPDATE cs2300project.level SET wr_player_id = {wrId} WHERE level_id = {levelId}")
+    try:
+        mysql.connection.commit()
+    except Exception as e:
+        print("error during song level addition")
+        print(e)
+        return '', 500
+    return "", 200
 app.run('localhost', 5000)

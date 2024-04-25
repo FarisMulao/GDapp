@@ -1,3 +1,2 @@
-Implement song grabbing when getting levels from gdbrowser
-add default admin login
-make sure get ratings returns the most recent ratings
+Test the addWr function
+(possibly) add timestamp to rating that is just current time and sort by time when getting ratings

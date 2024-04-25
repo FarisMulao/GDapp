@@ -84,6 +84,32 @@
 		creatorname not found: 404, "creator name not found"
 		success: 200, body is a list of MINI_LEVEL objects
 
+/admin/manualAddSong -- POST
+	Headers:
+		"Token"
+		"Songname"
+		"Songartist"
+	Return codes:
+		incorrect headers: 400
+		invalid token: 401
+		user is not an admin: 403
+		song already in db: 400, "song already in database"
+		success: 200
+
+/admin/manualAddSongLevel -- POST
+	Headers:
+		"Token"
+		"Levelid"
+		"Songid"
+	Return codes:
+		incorrect headers: 400
+		invalid token: 401
+		user is not an admin: 403
+		level id not in db: 400, "level id not found"
+		song id not in db: 400, "song id not found"
+		relation already exists: 400, "song level relation already exists"
+		success: 200
+
 LEVEL object:
 	{	"levelName": 
 		"difficulty":
