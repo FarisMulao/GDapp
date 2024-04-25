@@ -12,7 +12,7 @@ import normal from "./images/normal-difficulty-geometry-dash.jpg";
 interface Props {
   children?: string;
   onClick?: () => void;
-  difficulty?: number;
+  difficulty: number;
   levelId?: number;
   levelName?: string;
   distinction?: string;
@@ -25,14 +25,27 @@ export const LevelCard = ({
   levelName,
   distinction,
 }: Props) => {
+  let myMap = new Map<number, string>([
+    [1, "Auto"],
+    [2, "Easy"],
+    [3, "Normal"],
+    [4, "Hard"],
+    [5, "Hard"],
+    [6, "Harder"],
+    [7, "Harder"],
+    [8, "Insane"],
+    [9, "Insane"],
+    [10, "Demon"],
+  ]);
   return (
     <div>
       <Button onClick={() => console.log("hello")}>
         <Card
           sx={{
             display: "flex",
-            maxWidth: "40vw",
-            maxHeight: "30vh",
+            width: "30vw",
+            height: "25vh",
+            pl: 2,
           }}
         >
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -47,18 +60,24 @@ export const LevelCard = ({
               color="text.secondary"
               component="div"
             >
-              DIFFICULTY word
+              {myMap.get(difficulty)}
             </Typography>
             <Typography
               variant="subtitle1"
               color="text.secondary"
               component="div"
             >
-              DIFFICULTY number
+              {difficulty}
             </Typography>
           </Box>
 
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "30vw",
+            }}
+          >
             <CardContent sx={{ flex: "1 0 auto" }}>
               <Typography component="div" variant="h5">
                 Level Name

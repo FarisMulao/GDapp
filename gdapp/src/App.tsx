@@ -6,7 +6,8 @@ function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
-      <LevelCard></LevelCard>
+
+      <LevelCard difficulty={3}></LevelCard>
     </div>
   );
 }
