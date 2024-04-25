@@ -319,3 +319,53 @@ print("manually add song level combination already exists")
 test = requests.post("http://localhost:5000/admin/manualAddSongLevel", headers={"Token": adminToken, "Levelid": str(storedLevelId), "Songid": str(storedSongId)})
 assert(test.status_code == 400)
 assert(test.text == "song level relation already exists")
+
+### ---- add world record test
+
+print("add wr token not provided")
+test = requests.post("http://localhost:5000/admin/addWr")
+assert(test.status_code == 400)
+assert(test.text == "Token not provided")
+
+print("add wr invalid token")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": token + "t"})
+assert(test.status_code == 401)
+assert(test.text == "Invalid Token")
+
+print("add wr not admin")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": token})
+assert(test.status_code == 403)
+assert(test.text == "Admin permission required")
+
+print("add wr not all required headers provided")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": adminToken})
+assert(test.status_code == 400)
+assert(test.text == "invalid headers")
+
+print("add wr level does not exist")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": adminToken, "Levelid": str(storedLevelId + 4), "Wrid": str(storedGameAccountId)})
+assert(test.status_code == 400)
+assert(test.text == "level id not found")
+
+print("add wr wrTime included with non-platformer level")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": adminToken, "Levelid": str(storedLevelId), "Wrid": str(storedGameAccountId), "Wrtime": "12"})
+assert(test.status_code == 400)
+assert(test.text == "conflict between level type and wrtime")
+
+print("add wr wrTime not included with platformer level")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": adminToken, "Levelid": str(storedPlatformerLevelId), "Wrid": str(storedGameAccountId)})
+assert(test.status_code == 400)
+assert(test.text == "conflict between level type and wrtime")
+
+print("add wr wrid does not exist")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": adminToken, "Levelid": str(storedLevelId), "Wrid": str(fakeGameAccountId)})
+assert(test.status_code == 400)
+assert(test.text == "Error finding account id")
+
+print("add world record to platformer success")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": adminToken, "Levelid": str(storedPlatformerLevelId), "Wrid": str(storedGameAccountId), "Wrtime": "123"})
+assert(test.status_code == 200)
+
+print("add world record to nonplatformer success")
+test = requests.post("http://localhost:5000/admin/addWr", headers={"Token": adminToken, "Levelid": str(storedLevelId), "Wrid": str(storedGameAccountId)})
+assert(test.status_code == 200)

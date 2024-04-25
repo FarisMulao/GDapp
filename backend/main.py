@@ -642,7 +642,7 @@ def manualAddSongLevel():
         return '', 500
     return "", 200
 
-@app.route("/admin/addWr", headers=['POST'])
+@app.route("/admin/addWr", methods=['POST'])
 def adminAddWr():
     if "Token" in request.headers.keys():
         username = verifyAuth(request.headers.get("Token"))
@@ -678,7 +678,8 @@ def adminAddWr():
     # check if wrTime field is present and if it should be present
     if (int(bool(isPlatformer)) + int(bool("Wrtime" in request.headers)) == 1):
         return 'conflict between level type and wrtime', 400
-    wrTime = int(request.headers.get("Wrtime"))
+    if "Wrtime" in request.headers:
+        wrTime = int(request.headers.get("Wrtime"))
 
     # check that account exists. if not, try to add it
     cursor = mysql.connection.cursor()

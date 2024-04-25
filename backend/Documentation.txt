@@ -110,6 +110,21 @@
 		relation already exists: 400, "song level relation already exists"
 		success: 200
 
+/admin/addWr -- POST
+	Headers:
+		"Token"
+		"Levelid"
+		"Wrid"
+		"Wrtime"
+	Return codes:
+		incorrect headers: 400
+		invalid token: 401
+		user is not an admin: 403
+		level id not found: 400, "level id not found"
+		incorrect use of Wrtime: 400, "conflict between level type and wrtime"
+		creator id doesn't exist: 400, "Error finding account id"
+		Success: 200
+
 LEVEL object:
 	{	"levelName": 
 		"difficulty":
