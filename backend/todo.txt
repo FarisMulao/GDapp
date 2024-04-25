@@ -1,2 +1,1 @@
-Test the addWr function
 (possibly) add timestamp to rating that is just current time and sort by time when getting ratings
