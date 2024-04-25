@@ -6,22 +6,29 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export const LevelCard = () => {
+interface Props {
+  children?: string;
+  onClick?: () => void;
+  difficulty?: string;
+  levelId?: number;
+  levelName?: string;
+}
+
+export const LevelCard = ({
+  onClick,
+  difficulty,
+  levelId,
+  levelName,
+}: Props) => {
   return (
     <div>
-      <Card sx={{ maxWidth: "50vw" }}>
-        <CardMedia sx={{ height: "5vh" }} image="" title="" />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Title
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Description
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions>
+      <Card sx={{ width: "50vw", height: "10vh" }}>
+        <div>
+          Difficulty Image
+          <img alt="missing" src="" loading="lazy" />
+        </div>
+        <div>Level Name</div>
+        <div>Level ID</div>
       </Card>
     </div>
   );
