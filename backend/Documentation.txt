@@ -87,6 +87,7 @@
 /admin/manualAddSong -- POST
 	Headers:
 		"Token"
+		"SongId"
 		"Songname"
 		"Songartist"
 	Return codes:
