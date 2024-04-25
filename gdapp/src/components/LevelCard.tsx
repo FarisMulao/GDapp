@@ -5,13 +5,17 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import normal from "./images/normal-difficulty-geometry-dash.jpg";
 
 interface Props {
   children?: string;
   onClick?: () => void;
-  difficulty?: string;
+  difficulty?: number;
   levelId?: number;
   levelName?: string;
+  distinction?: string;
 }
 
 export const LevelCard = ({
@@ -19,17 +23,57 @@ export const LevelCard = ({
   difficulty,
   levelId,
   levelName,
+  distinction,
 }: Props) => {
   return (
     <div>
-      <Card sx={{ width: "50vw", height: "10vh" }}>
-        <div>
-          Difficulty Image
-          <img alt="missing" src="" loading="lazy" />
-        </div>
-        <div>Level Name</div>
-        <div>Level ID</div>
-      </Card>
+      <Button onClick={() => console.log("hello")}>
+        <Card
+          sx={{
+            display: "flex",
+            maxWidth: "40vw",
+            maxHeight: "30vh",
+          }}
+        >
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CardMedia
+              component="img"
+              sx={{ width: "10vh", p: 2 }}
+              image={normal}
+              alt="difficulty face"
+            />
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              component="div"
+            >
+              DIFFICULTY word
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              component="div"
+            >
+              DIFFICULTY number
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CardContent sx={{ flex: "1 0 auto" }}>
+              <Typography component="div" variant="h5">
+                Level Name
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                component="div"
+              >
+                Level ID
+              </Typography>
+            </CardContent>
+          </Box>
+        </Card>
+      </Button>
     </div>
   );
 };
