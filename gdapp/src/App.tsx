@@ -1,9 +1,13 @@
 import { Typography } from "@mui/material";
+import Navbar from "./components/Navbar";
+import LevelCard from "./components/LevelCard";
 
 function App() {
   return (
     <div className="App">
-      <Typography>GD app</Typography>
+      <Navbar></Navbar>
+
+      <LevelCard difficulty={3}></LevelCard>
     </div>
   );
 }
