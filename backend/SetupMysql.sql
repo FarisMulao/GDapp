@@ -1,5 +1,14 @@
-CREATE DATABASE `cs2300project` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+DROP DATABASE IF EXISTS cs2300project;
 
+CREATE DATABASE cs2300project /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+DROP USER IF EXISTS cs2300backend@localhost;
+
+CREATE USER cs2300backend@localhost IDENTIFIED BY 'cs2300password';
+
+USE cs2300project;
+
+GRANT DELETE, EXECUTE, INSERT, SELECT, SHOW VIEW, UPDATE ON cs2300project.* TO cs2300backend@localhost;
 
 CREATE TABLE `game_account` (
   `player_id` int NOT NULL,

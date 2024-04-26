@@ -1,4 +1,6 @@
 import requests
+import mysql.connector
+
 
 # account info
 accUsername = "TESTUSER"
@@ -21,6 +23,20 @@ storedSongId = 12345
 
 
 print("\n\nFunction Tester")
+input("WARNING: Running this tester will clear all tables. Hit enter to continue")
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="cs2300backend",
+  password="cs2300password"
+)
+
+cursor = mydb.cursor()
+f = open("testingDbInit.sql", encoding="utf-8")
+for result in cursor.execute(f.read(), multi=True):
+    print(result)
+mydb.commit()
+f.close()
 print("Testing Create Account Function:")
 
 ### ------ ACCOUNT CREATION TESTS
@@ -31,6 +47,7 @@ assert(test.status_code == 400)
 
 print("Creating account with all headers except game account")
 test = requests.post("http://localhost:5000/createaccount", headers={"Username": "testUserName", "Password": "password", "Email": "email@email.com"})
+print(test.text)
 assert(test.status_code == 200)
 
 print("Creating account with game id and existing gameAccount in table")
