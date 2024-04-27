@@ -1,6 +1,2 @@
 (possibly) add timestamp to rating that is just current time and sort by time when getting ratings
-create full instructions for backend setup from scratch
-	- MySQL Installation
-	- prefilled data script
-	- python library requirements
-make sure we have everything we need for the project requirements
+create a prefilled data sql and python script
