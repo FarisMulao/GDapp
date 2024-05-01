@@ -377,8 +377,16 @@ def getLevelInformation():
         for song in songData:
             finalSongList.append({"songName": song[0], "artistName": song[1]})
 
+    # get the average rating
+    avgEnjoyment = None
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT AVG(enjoyment) FROM cs2300project.rating WHERE level_id={levelId}")
+    data = cursor.fetchall()
+    if len(data) != 0:
+        avgEnjoyment = data[0][0]
+
     # return [level name, difficulty, distinction, creator name, length, wr holder name, wr time, avg time, is platformer]
-    return {"levelName": levelData[1], "difficulty": levelData[2], "distinction": levelData[3], "creator_username": creatorName, "length": levelData[5], "wrUsername": wrName, "wrTime": levelData[7], "avgTime": levelData[8], "is_platformer": levelData[9], "songs": finalSongList}, 200
+    return {"levelName": levelData[1], "difficulty": levelData[2], "distinction": levelData[3], "creator_username": creatorName, "length": levelData[5], "wrUsername": wrName, "wrTime": levelData[7], "avgTime": levelData[8], "is_platformer": levelData[9], "songs": finalSongList, "avgEnjoyment": avgEnjoyment}, 200
 
 @app.route("/admin/addLevel", methods=["POST"])
 def addLevel():

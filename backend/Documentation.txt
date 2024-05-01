@@ -137,6 +137,7 @@ LEVEL object:
 		"avgTime":
 		"is_platformer":
 		"songs": []
+		"avgEnjoyment":
 	}
 
 MINI_LEVEL object:
