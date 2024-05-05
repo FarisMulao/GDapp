@@ -1,8 +1,6 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -47,66 +45,60 @@ export const LevelCard = ({
     [7, [10, 1360]],
     [8, [1020, 25]],
     [9, [1020, 25]],
-    [10, [1030, 910]],
+    [10, [1025, 910]],
   ]);
   let CX: any = imageMap.get(difficulty);
   return (
-    <div>
-      <Button onClick={() => console.log("hello")} sx={{}}>
-        <Card
+    <Button onClick={() => console.log("hello")}>
+      <Card
+        sx={{
+          display: "flex",
+          width: "30vw",
+          height: "25vh",
+          pl: 2,
+          bgcolor: "#342F31",
+        }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <CroppedImage
+            difficulty2={1}
+            imageSource={faces}
+            cropX={CX[0]}
+            cropY={CX[1]}
+            cropWidth={165}
+            cropHeight={160}
+          ></CroppedImage>
+          <Typography variant="subtitle1" color="#F3BB3B" component="div">
+            {myMap.get(difficulty)}
+          </Typography>
+          <Typography variant="subtitle1" color="#F3BB3B" component="div">
+            {difficulty} Star
+          </Typography>
+        </Box>
+
+        <Box
           sx={{
             display: "flex",
+            flexDirection: "column",
             width: "30vw",
-            height: "25vh",
-            pl: 2,
-            bgcolor: "#342F31",
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CroppedImage
-              difficulty2={1}
-              imageSource={faces}
-              cropX={CX[0]}
-              cropY={CX[1]}
-              cropWidth={165}
-              cropHeight={160}
-            ></CroppedImage>
-            <Typography variant="subtitle1" color="#F3BB3B" component="div">
-              {myMap.get(difficulty)}
+          <CardContent sx={{ flex: "1 0 auto" }}>
+            <Typography component="div" variant="h5" sx={{ color: "#F3BB3B" }}>
+              Level Name
             </Typography>
-            <Typography variant="subtitle1" color="#F3BB3B" component="div">
-              {difficulty} Star
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              component="div"
+              sx={{ color: "#F3BB3B" }}
+            >
+              Level ID
             </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "30vw",
-            }}
-          >
-            <CardContent sx={{ flex: "1 0 auto" }}>
-              <Typography
-                component="div"
-                variant="h5"
-                sx={{ color: "#F3BB3B" }}
-              >
-                Level Name
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="text.secondary"
-                component="div"
-                sx={{ color: "#F3BB3B" }}
-              >
-                Level ID
-              </Typography>
-            </CardContent>
-          </Box>
-        </Card>
-      </Button>
-    </div>
+          </CardContent>
+        </Box>
+      </Card>
+    </Button>
   );
 };
 
