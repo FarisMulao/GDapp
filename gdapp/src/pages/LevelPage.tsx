@@ -14,10 +14,21 @@ function LevelPage() {
         spacing={0}
         direction="column"
         alignItems="center"
-        justifyContent="center"
         sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
       >
-        <LevelInfo difficulty={1}></LevelInfo>
+        <LevelInfo
+          difficulty={1}
+          levelId={1293023}
+          levelName="Test Level Name"
+          creatorUsername="Test Creator Username"
+          length="test length"
+          wrTime="test wrTIme"
+          wrUsername="Test wrUsername"
+          avgEnjoyment={1293091023}
+          avgTime="test avgTime"
+          isPlatformer={false}
+          songs="test song"
+        ></LevelInfo>
       </Grid>
     </div>
   );

@@ -20,7 +20,7 @@ interface Props {
   wrTime?: string;
   avgTime?: string;
   isPlatformer?: boolean;
-  songs?: Array<string>;
+  songs?: string;
   avgEnjoyment?: number;
 }
 
@@ -64,15 +64,22 @@ export const LevelInfo = ({
     [10, [1025, 910]],
   ]);
   let CX: any = imageMap.get(difficulty);
+  let type = "";
+  if (isPlatformer) {
+    type = "Platformer";
+  } else {
+    type = "other";
+  }
   return (
     <div>
       <Card
         sx={{
           display: "flex",
           width: "80vw",
-          height: "70vh",
+          height: "60vh",
           pl: 2,
           bgcolor: "#342F31",
+          mt: 5,
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -84,10 +91,20 @@ export const LevelInfo = ({
             cropWidth={165}
             cropHeight={160}
           ></CroppedImage>
-          <Typography variant="subtitle1" color="#F3BB3B" component="div">
+          <Typography
+            variant="h5"
+            color="#F3BB3B"
+            component="div"
+            align="center"
+          >
             {myMap.get(difficulty)}
           </Typography>
-          <Typography variant="subtitle1" color="#F3BB3B" component="div">
+          <Typography
+            variant="h5"
+            color="#F3BB3B"
+            component="div"
+            align="center"
+          >
             {difficulty} Star
           </Typography>
         </Box>
@@ -96,21 +113,39 @@ export const LevelInfo = ({
           sx={{
             display: "flex",
             flexDirection: "column",
-            width: "30vw",
+            width: "70vw",
           }}
         >
           <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="h5" sx={{ color: "#F3BB3B" }}>
-              {levelName}
+            <Typography component="div" variant="h3" sx={{ color: "#F3BB3B" }}>
+              {levelName} By {creatorUsername}
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="h5"
               color="text.secondary"
               component="div"
               sx={{ color: "#F3BB3B" }}
             >
-              {levelId}
+              ID: {levelId}
+              <br />
+              Enjoyment: {avgEnjoyment}
+              <br />
+              WR: {wrTime} By {wrUsername}
+              <br />
+              Average Time {avgTime}
+              <br />
+              Type: {type}
             </Typography>
+            <Box sx={{ mt: "20vh" }}>
+              <Typography
+                variant="h4"
+                color="text.secondary"
+                component="div"
+                sx={{ color: "#F3BB3B" }}
+              >
+                Song: {songs}
+              </Typography>
+            </Box>
           </CardContent>
         </Box>
       </Card>

@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
 import AdminPanel from "./AdminPanel";
+import { Link } from "react-router-dom";
 
 interface Props {
   children?: string;
@@ -70,25 +71,26 @@ export const NavBar = ({ onClick, value, openBool }: Props) => {
                 mr: 1,
               }}
             />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "#F3BB3B",
-                textDecoration: "none",
-                px: 1,
-              }}
-            >
-              GD Browser
-            </Typography>
-
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="#app-bar-with-responsive-menu"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "#F3BB3B",
+                  textDecoration: "none",
+                  px: 1,
+                }}
+              >
+                GD Browser
+              </Typography>
+            </Link>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"

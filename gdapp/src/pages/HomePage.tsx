@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import LevelCard from "../components/LevelCard";
 import { Grid } from "@mui/material";
 import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 
 function HomePage() {
   /*
@@ -11,13 +11,11 @@ function HomePage() {
   }, []);
   
   async function getLevels() {
-    let base64 = require("base-64");
     let headers = new Headers();
     let username = "admin";
     let password = "password";
     headers.append(
-      "Authorization",
-      "Basic " + base64.encode(username + ":" + password)
+      "FILL THIS LATER"
     );
     let dat = await fetch("http://localhost:3306/api/foundItems/getAllItem", {
       method: "GET",
@@ -58,11 +56,13 @@ function HomePage() {
         sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
       >
         {lev.map((lev) => (
-          <LevelCard
-            difficulty={lev[0]}
-            levelId={lev[1]}
-            levelName="temp"
-          ></LevelCard>
+          <Link to="/level/12">
+            <LevelCard
+              difficulty={lev[0]}
+              levelId={lev[1]}
+              levelName="temp"
+            ></LevelCard>
+          </Link>
         ))}
       </Grid>
     </div>
