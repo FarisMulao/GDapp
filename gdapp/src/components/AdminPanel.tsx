@@ -1,6 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Button, Container, Dialog, Grid, TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 
 interface Props {
   children?: string;
@@ -37,7 +38,9 @@ export const AdminPanel = ({ onClick, openBool, children }: Props) => {
                 value={levelName}
                 onChange={(e) => setLevelName(e.target.value)}
               ></TextField>
-              <Button onClick={handleClickClose}>submit</Button>
+              <Link to="/" reloadDocument>
+                <Button onClick={handleClickClose}>SUBMIT</Button>
+              </Link>
             </Grid>
           </Box>
         </Container>
