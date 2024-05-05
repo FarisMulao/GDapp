@@ -5,19 +5,15 @@ import { useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 
 function HomePage() {
-  /*
   useEffect(() => {
     getLevels();
   }, []);
-  
+  //for /filterLevel -- GET
   async function getLevels() {
     let headers = new Headers();
-    let username = "admin";
-    let password = "password";
-    headers.append(
-      "FILL THIS LATER"
-    );
-    let dat = await fetch("http://localhost:3306/api/foundItems/getAllItem", {
+    headers.append("Lowdifficultyrating", "1");
+    headers.append("Highdifficultyrating", "10");
+    let dat = await fetch("http://localhost:5000/filterLevel", {
       method: "GET",
       headers: headers,
     })
@@ -30,7 +26,7 @@ function HomePage() {
       });
     return dat;
   }
- */
+
   let lev = [
     [1, 129302932],
     [2, 129302932],
