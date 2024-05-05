@@ -29,6 +29,7 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'cs2300backend'
 app.config['MYSQL_PASSWORD'] = 'cs2300password'
 app.config['MYSQL_DB'] = 'cs2300project'
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 mysql = MySQL(app)
 

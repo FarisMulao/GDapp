@@ -2,3 +2,4 @@ Flask==3.0.3
 Flask_MySQLdb==2.0.0
 mysql-connector-python==8.3.0
 Requests==2.31.0
+flask_cors==4.0.1
