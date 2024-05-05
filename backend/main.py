@@ -4,6 +4,7 @@
 
 
 from flask import Flask, request
+from flask_cors import CORS
 from flask_mysqldb import MySQL
 import hashlib
 import random
@@ -22,6 +23,7 @@ lengthMap = {
 
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'cs2300backend'
