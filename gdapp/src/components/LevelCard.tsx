@@ -6,8 +6,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import normal from "./images/normal-difficulty-geometry-dash.jpg";
+import faces from "./images/difficulty-faces.png";
+import { CroppedImage } from "./CroppedImage";
 
 interface Props {
   children?: string;
@@ -37,37 +37,45 @@ export const LevelCard = ({
     [9, "Insane"],
     [10, "Demon"],
   ]);
+  let imageMap = new Map<number, Array<number>>([
+    [1, [10, 250]],
+    [2, [10, 470]],
+    [3, [10, 915]],
+    [4, [10, 1140]],
+    [5, [10, 1140]],
+    [6, [10, 1360]],
+    [7, [10, 1360]],
+    [8, [1020, 25]],
+    [9, [1020, 25]],
+    [10, [1030, 910]],
+  ]);
+  let CX: any = imageMap.get(difficulty);
   return (
     <div>
-      <Button onClick={() => console.log("hello")}>
+      <Button onClick={() => console.log("hello")} sx={{}}>
         <Card
           sx={{
             display: "flex",
             width: "30vw",
             height: "25vh",
             pl: 2,
+            bgcolor: "#342F31",
           }}
         >
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardMedia
-              component="img"
-              sx={{ width: "10vh", p: 2 }}
-              image={normal}
-              alt="difficulty face"
-            />
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              component="div"
-            >
+            <CroppedImage
+              difficulty2={1}
+              imageSource={faces}
+              cropX={CX[0]}
+              cropY={CX[1]}
+              cropWidth={165}
+              cropHeight={160}
+            ></CroppedImage>
+            <Typography variant="subtitle1" color="#F3BB3B" component="div">
               {myMap.get(difficulty)}
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              component="div"
-            >
-              {difficulty}
+            <Typography variant="subtitle1" color="#F3BB3B" component="div">
+              {difficulty} Star
             </Typography>
           </Box>
 
@@ -79,13 +87,18 @@ export const LevelCard = ({
             }}
           >
             <CardContent sx={{ flex: "1 0 auto" }}>
-              <Typography component="div" variant="h5">
+              <Typography
+                component="div"
+                variant="h5"
+                sx={{ color: "#F3BB3B" }}
+              >
                 Level Name
               </Typography>
               <Typography
                 variant="subtitle1"
                 color="text.secondary"
                 component="div"
+                sx={{ color: "#F3BB3B" }}
               >
                 Level ID
               </Typography>

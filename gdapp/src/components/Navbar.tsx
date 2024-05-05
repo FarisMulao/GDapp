@@ -46,7 +46,10 @@ export const NavBar = ({ onClick, value }: Props) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      sx={{ bgcolor: "#342F31", color: "#F3BB3B", mb: 1 }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <CropSquareIcon
@@ -67,7 +70,7 @@ export const NavBar = ({ onClick, value }: Props) => {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "#F3BB3B",
               textDecoration: "none",
               px: 1,
             }}
