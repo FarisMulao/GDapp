@@ -53,7 +53,7 @@ export const LevelCard = ({
       <Card
         sx={{
           display: "flex",
-          width: "30vw",
+          width: "40vw",
           height: "25vh",
           pl: 2,
           bgcolor: "#342F31",
@@ -85,7 +85,7 @@ export const LevelCard = ({
         >
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h5" sx={{ color: "#F3BB3B" }}>
-              Level Name
+              {levelName}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -93,7 +93,7 @@ export const LevelCard = ({
               component="div"
               sx={{ color: "#F3BB3B" }}
             >
-              Level ID
+              {levelId}
             </Typography>
           </CardContent>
         </Box>

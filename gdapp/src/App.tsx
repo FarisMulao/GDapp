@@ -33,6 +33,18 @@ function App() {
     return dat;
   }
  */
+  let lev = [
+    [1, 129302932],
+    [2, 129302932],
+    [3, 129302932],
+    [4, 129302932],
+    [5, 129302932],
+    [6, 129302932],
+    [7, 129302932],
+    [8, 129302932],
+    [9, 129302932],
+    [10, 129302932],
+  ];
   return (
     <div className="App">
       <Navbar></Navbar>
@@ -45,16 +57,13 @@ function App() {
         justifyContent="center"
         sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
       >
-        <LevelCard difficulty={1}></LevelCard>
-        <LevelCard difficulty={2}></LevelCard>
-        <LevelCard difficulty={3}></LevelCard>
-        <LevelCard difficulty={4}></LevelCard>
-        <LevelCard difficulty={5}></LevelCard>
-        <LevelCard difficulty={6}></LevelCard>
-        <LevelCard difficulty={7}></LevelCard>
-        <LevelCard difficulty={8}></LevelCard>
-        <LevelCard difficulty={9}></LevelCard>
-        <LevelCard difficulty={10}></LevelCard>
+        {lev.map((lev) => (
+          <LevelCard
+            difficulty={lev[0]}
+            levelId={lev[1]}
+            levelName="temp"
+          ></LevelCard>
+        ))}
       </Grid>
     </div>
   );
