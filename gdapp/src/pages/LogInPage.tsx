@@ -3,6 +3,7 @@ import LevelCard from "../components/LevelCard";
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
+import LogIn from "../components/LogIn";
 
 function LogInPage() {
   return (
@@ -14,9 +15,10 @@ function LogInPage() {
         spacing={0}
         direction="column"
         alignItems="center"
-        sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
+        justifyContent="center"
+        sx={{ minHeight: "90.5vh", bgcolor: "#B3ABB1" }}
       >
-        <></>
+        <LogIn></LogIn>
       </Grid>
     </div>
   );
