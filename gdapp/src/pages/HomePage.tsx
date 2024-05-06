@@ -1,10 +1,15 @@
 import Navbar from "../components/Navbar";
 import LevelCard from "../components/LevelCard";
 import { Grid } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
+import SignUp from "../components/SignUp";
 
 function HomePage() {
+  const [levelData, setLevelData] = useState([
+    <LevelCard difficulty={1}></LevelCard>,
+  ]);
+
   useEffect(() => {
     getLevels();
   }, []);
@@ -19,26 +24,22 @@ function HomePage() {
     })
       .then((response) => response.json())
       .then((json) => {
+        console.log(json);
         const data = Object.values(json).map((listing: any) => {
-          return <LevelCard difficulty={listing.difficulty}></LevelCard>;
+          return (
+            <LevelCard
+              difficulty={listing.difficulty}
+              levelId={listing.levelId}
+              levelName={listing.levelName}
+            ></LevelCard>
+          );
         });
         return data;
       });
-    return dat;
+    setLevelData(dat);
+    console.log(levelData);
   }
 
-  let lev = [
-    [1, 129302932],
-    [2, 129302932],
-    [3, 129302932],
-    [4, 129302932],
-    [5, 129302932],
-    [6, 129302932],
-    [7, 129302932],
-    [8, 129302932],
-    [9, 129302932],
-    [10, 129302932],
-  ];
   return (
     <div>
       <Navbar></Navbar>
@@ -48,18 +49,9 @@ function HomePage() {
         spacing={0}
         direction="column"
         alignItems="center"
-        justifyContent="center"
         sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
       >
-        {lev.map((lev) => (
-          <Link to="/level/12">
-            <LevelCard
-              difficulty={lev[0]}
-              levelId={lev[1]}
-              levelName="temp"
-            ></LevelCard>
-          </Link>
-        ))}
+        {levelData}
       </Grid>
     </div>
   );

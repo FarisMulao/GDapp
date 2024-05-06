@@ -120,11 +120,16 @@ export const NavBar = ({ onClick, value, openBool }: Props) => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                <Link to="/signup">
+                  <MenuItem key="signup" onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">SignU edep</Typography>
                   </MenuItem>
-                ))}
+                </Link>
+                <Link to="/login">
+                  <MenuItem key="login" onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">LogIn</Typography>
+                  </MenuItem>
+                </Link>
               </Menu>
             </Box>
             <CropSquareIcon
@@ -149,15 +154,24 @@ export const NavBar = ({ onClick, value, openBool }: Props) => {
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+              <Link to="/signup" style={{ textDecoration: "none" }}>
                 <Button
-                  key={page}
+                  key="sign up"
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
+                  Sign Up
                 </Button>
-              ))}
+              </Link>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <Button
+                  key="log in"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Log In
+                </Button>
+              </Link>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>

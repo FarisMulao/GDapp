@@ -10,17 +10,17 @@ import { CroppedImage } from "./CroppedImage";
 interface Props {
   children?: string;
   onClick?: () => void;
-  difficulty: number;
-  levelId?: number;
+  difficulty?: number;
+  levelId?: string;
   levelName?: string;
   distinction?: string;
   creatorUsername?: string;
   length?: string;
   wrUsername?: string;
-  wrTime?: string;
-  avgTime?: string;
+  wrTime?: number;
+  avgTime?: number;
   isPlatformer?: boolean;
-  songs?: string;
+  songs?: string[];
   avgEnjoyment?: number;
 }
 
@@ -63,7 +63,8 @@ export const LevelInfo = ({
     [9, [1020, 25]],
     [10, [1025, 910]],
   ]);
-  let CX: any = imageMap.get(difficulty);
+  let temp: any = difficulty;
+  let CX: any = imageMap.get(temp);
   let type = "";
   if (isPlatformer) {
     type = "Platformer";
@@ -97,7 +98,7 @@ export const LevelInfo = ({
             component="div"
             align="center"
           >
-            {myMap.get(difficulty)}
+            {myMap.get(temp)}
           </Typography>
           <Typography
             variant="h5"
@@ -105,7 +106,7 @@ export const LevelInfo = ({
             component="div"
             align="center"
           >
-            {difficulty} Star
+            {temp} Star
           </Typography>
         </Box>
 
