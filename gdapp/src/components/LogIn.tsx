@@ -23,7 +23,7 @@ export const LogIn = ({ userName, password }: Props) => {
     let headers = new Headers();
     headers.append("Username", userNameData);
     headers.append("Password", passwordData);
-    fetch("http://localhost:5000/createaccount", {
+    fetch("http://localhost:5000/login", {
       method: "POST",
       headers: headers,
     }).then((response) => {
