@@ -39,17 +39,14 @@ function LevelPage() {
             levelId={replacment}
             length={json.length}
             creatorUsername={json.creator_username}
-            //difficulty={listing.difficulty}
-            difficulty={3}
-            //wrUsername={listing.wrUsername}
-            wrTime={120}
-            //wrUsername={"fartlord"}
-            //wrTime={listing.wrTIme}
-            //avgEnjoyment={listing.avgEnjoyment}
+            difficulty={json.difficulty ?? "None"}
+            wrTime={json.wrTime ?? "None"}
+            wrUsername={json.wrUsername ?? "None"}
+            avgEnjoyment={json.avgEnjoyment ?? "Not Available"}
             avgTime={json.avgTime ?? "None"}
-            //songs={listing.songs}
-            //isPlatformer={listing.isPlatformer}
-            //creatorUsername={listing.creator_username}
+            songs={json.songs.songName ?? "None"}
+            isPlatformer={json.isPlatformer}
+            levelName={json.levelName}
           ></LevelInfo>
         );
         setLevelData([foo]);

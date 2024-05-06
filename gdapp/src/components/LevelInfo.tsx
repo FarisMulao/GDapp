@@ -63,13 +63,17 @@ export const LevelInfo = ({
     [9, [1020, 25]],
     [10, [1025, 910]],
   ]);
+  let typeMap = new Map<string, string>([
+    ["0", "Platformer"],
+    ["1", "Normal"],
+  ]);
   let temp: any = difficulty;
   let CX: any = imageMap.get(temp);
   let type = "";
   if (isPlatformer) {
     type = "Platformer";
   } else {
-    type = "other";
+    type = "Normal";
   }
   return (
     <div>
@@ -133,13 +137,13 @@ export const LevelInfo = ({
               <br />
               WR: {wrTime} By {wrUsername}
               <br />
-              Average Time {avgTime}
+              Average Time: {avgTime}
               <br />
-              Type: {type}
+              Type: {type} {typeMap.get(type)}
               <br />
               Length: {length}
             </Typography>
-            <Box sx={{ mt: "20vh" }}>
+            <Box sx={{ mt: "15vh" }}>
               <Typography
                 variant="h4"
                 color="text.secondary"
