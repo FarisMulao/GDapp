@@ -1,11 +1,12 @@
 import Navbar from "../components/Navbar";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LevelInfo from "../components/LevelInfo";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { LineStyle } from "@mui/icons-material";
+import RatingCard from "../components/RatingCard";
 
 interface Props {
   user?: any;
@@ -44,7 +45,7 @@ function LevelPage({ user }: Props) {
             length={json.length}
             creatorUsername={json.creator_username}
             difficulty={json.difficulty ?? "None"}
-            wrTime={json.wrTime ?? "None"}
+            wrTime={json.wrTime ?? "0"}
             wrUsername={json.wrUsername ?? "None"}
             avgEnjoyment={json.avgEnjoyment ?? "Not Available"}
             avgTime={json.avgTime ?? "None"}
@@ -69,6 +70,10 @@ function LevelPage({ user }: Props) {
         sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
       >
         {levelData}
+
+        <Box sx={{ mt: 5, bgcolor: "#B3ABB1" }}>
+          <RatingCard user={user}></RatingCard>
+        </Box>
       </Grid>
     </div>
   );

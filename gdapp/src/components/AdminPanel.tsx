@@ -35,7 +35,7 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
     }).then((response) => {
       console.log(response);
       response.text().then();
-      console.log(response);
+      window.location.assign("/");
     });
   }
 
