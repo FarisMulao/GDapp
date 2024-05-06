@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import SignUp from "../components/SignUp";
 
-function HomePage() {
+interface Props {
+  user: any;
+}
+
+function HomePage({ user }: Props) {
   const [levelData, setLevelData] = useState([
     <LevelCard difficulty={1}></LevelCard>,
   ]);
@@ -43,7 +47,7 @@ function HomePage() {
   return (
     <div>
       <Navbar></Navbar>
-
+      {user}
       <Grid
         container
         spacing={0}

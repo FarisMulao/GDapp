@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import LogIn from "../components/LogIn";
 
-function LogInPage() {
+interface Props {
+  setUser: (user: any) => void;
+}
+
+function LogInPage({ setUser }: Props) {
   return (
     <div>
       <Navbar></Navbar>
@@ -18,7 +22,7 @@ function LogInPage() {
         justifyContent="center"
         sx={{ minHeight: "90.5vh", bgcolor: "#B3ABB1" }}
       >
-        <LogIn></LogIn>
+        <LogIn setUser={setUser}></LogIn>
       </Grid>
     </div>
   );

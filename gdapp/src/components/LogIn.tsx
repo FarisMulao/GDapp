@@ -12,9 +12,10 @@ import { TextField } from "@mui/material";
 interface Props {
   userName?: string;
   password?: string;
+  setUser: (user: any) => void;
 }
 
-export const LogIn = ({ userName, password }: Props) => {
+export const LogIn = ({ userName, password, setUser }: Props) => {
   const [userNameData, setUserNameData] = React.useState("");
   const [passwordData, setPasswordData] = React.useState("");
   userName = userNameData;
@@ -28,6 +29,8 @@ export const LogIn = ({ userName, password }: Props) => {
       headers: headers,
     }).then((response) => {
       console.log(response);
+      response.text().then((text) => setUser(text));
+      //setUser(response.body); // make sure response is a valid response (bad password etc)
     });
   }
 

@@ -34,39 +34,26 @@ function LevelPage() {
       .then((json) => {
         console.log(json);
 
-        const data = Object.values(json).map((listing: any) => {
-          console.log(
-            listing?.creator_username,
-            listing?.difficulty,
-            listing?.wrTime,
-            listing?.wrUsername,
-            listing?.difficulty,
-            listing?.levelID
-          );
-          console.log(json);
-          return (
-            <LevelInfo
-              levelId={replacment}
-              length={"medium"}
-              //difficulty={listing.difficulty}
-              difficulty={3}
-              //wrUsername={listing.wrUsername}
-              wrTime={120}
-              //wrUsername={"fartlord"}
-              //wrTime={listing.wrTIme}
-              //avgEnjoyment={listing.avgEnjoyment}
-              //avgTime={listing.avgTime}
-              //songs={listing.songs}
-              //isPlatformer={listing.isPlatformer}
-              //creatorUsername={listing.creator_username}
-            ></LevelInfo>
-          );
-        });
-        console.log(JSON.stringify(data, null, 2));
-        return data;
+        const foo = (
+          <LevelInfo
+            levelId={replacment}
+            length={json.length}
+            creatorUsername={json.creator_username}
+            //difficulty={listing.difficulty}
+            difficulty={3}
+            //wrUsername={listing.wrUsername}
+            wrTime={120}
+            //wrUsername={"fartlord"}
+            //wrTime={listing.wrTIme}
+            //avgEnjoyment={listing.avgEnjoyment}
+            avgTime={json.avgTime ?? "None"}
+            //songs={listing.songs}
+            //isPlatformer={listing.isPlatformer}
+            //creatorUsername={listing.creator_username}
+          ></LevelInfo>
+        );
+        setLevelData([foo]);
       });
-    setLevelData(dat);
-    console.log(levelData);
   }
 
   return (
