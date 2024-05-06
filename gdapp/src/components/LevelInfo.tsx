@@ -136,6 +136,8 @@ export const LevelInfo = ({
               Average Time {avgTime}
               <br />
               Type: {type}
+              <br />
+              Length: {length}
             </Typography>
             <Box sx={{ mt: "20vh" }}>
               <Typography

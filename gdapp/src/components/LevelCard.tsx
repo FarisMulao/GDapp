@@ -49,7 +49,6 @@ export const LevelCard = ({
     [9, [1020, 25]],
     [10, [1025, 910]],
   ]);
-  console.log(difficulty);
   let temp: any = difficulty;
   let CX: any = imageMap.get(temp);
 
