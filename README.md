@@ -15,6 +15,6 @@
 - In a new window, run the backend tester script.
 ```python functionTester.py```
 - If there are no errors, then the backend is ready. Keep main.py running.
-- Run the data initialization script.(TODO WRITE THIS)
-```python dataInitialization.py```
+- The functionTester script will insert admin credentials and some levels, so everything should be ready
+
 ## Frontend Setup Procedure
