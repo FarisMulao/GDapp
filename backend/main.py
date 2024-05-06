@@ -327,7 +327,7 @@ def getRatings():
     data = cursor.fetchall()
     output = []
     for rating in data:
-        output.append({"username": rating[1], "userTimeRating": rating[2], "enjoyment": rating[3], "difficulty": [rating[4]]})
+        output.append({"username": rating[1], "userTimeRating": rating[2], "enjoyment": rating[3], "difficulty": rating[4]})
     return output, 200
 
 @app.route("/getLevelInformation", methods=["GET"])
