@@ -46,7 +46,7 @@ function HomePage({ user }: Props) {
 
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar user={user}></Navbar>
       {user}
       <Grid
         container

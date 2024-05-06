@@ -7,7 +7,11 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { LineStyle } from "@mui/icons-material";
 
-function LevelPage() {
+interface Props {
+  user?: any;
+}
+
+function LevelPage({ user }: Props) {
   const [levelData, setLevelData] = useState([
     <LevelInfo difficulty={1}></LevelInfo>,
   ]);
@@ -55,7 +59,7 @@ function LevelPage() {
 
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar user={user}></Navbar>
 
       <Grid
         container

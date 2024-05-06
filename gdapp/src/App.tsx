@@ -26,7 +26,10 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage user={user}></HomePage>} />
-        <Route path="/level/:id" element={<LevelPage></LevelPage>} />
+        <Route
+          path="/level/:id"
+          element={<LevelPage user={user}></LevelPage>}
+        />
         <Route path="/signup" element={<SignUpPage></SignUpPage>} />
         <Route
           path="/login"

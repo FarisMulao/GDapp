@@ -15,7 +15,7 @@ interface Props {
   levelName?: string;
   distinction?: string;
   creatorUsername?: string;
-  length?: string;
+  length?: number;
   wrUsername?: string;
   wrTime?: number;
   avgTime?: number;
@@ -63,10 +63,22 @@ export const LevelInfo = ({
     [9, [1020, 25]],
     [10, [1025, 910]],
   ]);
-  let typeMap = new Map<string, string>([
-    ["0", "Platformer"],
-    ["1", "Normal"],
+  let lengthMap = new Map<number | null, string>([
+    [0, "Tiny"],
+    [1, "Short"],
+    [2, "Medium"],
+    [3, "Long"],
+    [4, "XL"],
+    [5, "PLAT"],
   ]);
+
+  let tempLength: number = -1;
+
+  if (length === undefined || length === null) {
+    tempLength = 5;
+  } else {
+    tempLength = length;
+  }
   let temp: any = difficulty;
   let CX: any = imageMap.get(temp);
   let type = "";
@@ -139,9 +151,9 @@ export const LevelInfo = ({
               <br />
               Average Time: {avgTime}
               <br />
-              Type: {type} {typeMap.get(type)}
+              Type: {type}
               <br />
-              Length: {length}
+              Length: {lengthMap.get(tempLength)}
             </Typography>
             <Box sx={{ mt: "15vh" }}>
               <Typography

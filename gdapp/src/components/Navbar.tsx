@@ -20,12 +20,10 @@ interface Props {
   value?: string;
   openBool?: boolean;
   onClick?: () => void;
+  user?: any;
 }
 
-const pages = ["Sign Up", "Log In"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
-export const NavBar = ({ onClick, value, openBool }: Props) => {
+export const NavBar = ({ onClick, value, openBool, user }: Props) => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -196,20 +194,27 @@ export const NavBar = ({ onClick, value, openBool }: Props) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem key="username" onClick={handleAdmin}>
+                  <Typography textAlign="center">
+                    {user ?? "No User"}
+                  </Typography>
+                </MenuItem>
                 <MenuItem key="admin panel" onClick={handleAdmin}>
                   <Typography textAlign="center">Admin Panel</Typography>
+                </MenuItem>
+                <MenuItem key="log out" onClick={handleAdmin}>
+                  <Typography textAlign="center">Log Out</Typography>
                 </MenuItem>
               </Menu>
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
-      <AdminPanel openBool={adminOpen} onClick={handleAdmin}></AdminPanel>
+      <AdminPanel
+        openBool={adminOpen}
+        onClick={handleAdmin}
+        user={user}
+      ></AdminPanel>
     </div>
   );
 };

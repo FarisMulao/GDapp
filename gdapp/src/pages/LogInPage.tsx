@@ -6,6 +6,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import LogIn from "../components/LogIn";
 
 interface Props {
+  username?: string;
   setUser: (user: any) => void;
 }
 
