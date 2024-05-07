@@ -176,6 +176,7 @@ export const LevelInfo = ({
                 {songs
                   .map((e) => `${e.songName} by ${e.artistName}`)
                   .join(", ")}
+                {songs.length === 0 ? "None" : ""}
               </Typography>
             </Box>
           </CardContent>
