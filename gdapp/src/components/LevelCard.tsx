@@ -49,9 +49,9 @@ export const LevelCard = ({
     [9, [1020, 25]],
     [10, [1025, 910]],
   ]);
+
   let temp: any = difficulty;
   let CX: any = imageMap.get(temp);
-
   return (
     <Link to={`/level/${levelId}`}>
       <Button onClick={() => console.log("hello")}>

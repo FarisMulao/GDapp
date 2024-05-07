@@ -43,6 +43,11 @@ export const NavBar = ({ onClick, value, openBool, user, userName }: Props) => {
     setAnchorElNav(null);
   };
 
+  const logOut = () => {
+    window.sessionStorage.clear();
+    window.location.assign("/");
+  };
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -121,7 +126,7 @@ export const NavBar = ({ onClick, value, openBool, user, userName }: Props) => {
               >
                 <Link to="/signup">
                   <MenuItem key="signup" onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">SignU edep</Typography>
+                    <Typography textAlign="center">SignUp</Typography>
                   </MenuItem>
                 </Link>
                 <Link to="/login">
@@ -212,7 +217,7 @@ export const NavBar = ({ onClick, value, openBool, user, userName }: Props) => {
                 <MenuItem key="admin panel" onClick={handleAdmin}>
                   <Typography textAlign="center">Admin Panel</Typography>
                 </MenuItem>
-                <MenuItem key="log out" onClick={handleAdmin}>
+                <MenuItem key="log out" onClick={() => logOut()}>
                   <Typography textAlign="center">Log Out</Typography>
                 </MenuItem>
               </Menu>
