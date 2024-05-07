@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import faces from "./images/difficulty-faces.png";
 import { CroppedImage } from "./CroppedImage";
+import { Rating } from "@mui/material";
 
 interface Props {
   children?: string;
@@ -147,7 +148,7 @@ export const LevelInfo = ({
               <br />
               Enjoyment: {avgEnjoyment}
               <br />
-              WR: {wrTime} By {wrUsername}
+              WR: {wrTime} Seconds By {wrUsername}
               <br />
               Average Time: {avgTime}
               <br />

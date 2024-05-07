@@ -20,8 +20,8 @@ function HomePage({ user }: Props) {
   //for /filterLevel -- GET
   async function getLevels() {
     let headers = new Headers();
-    headers.append("Lowdifficultyrating", "1");
-    headers.append("Highdifficultyrating", "10");
+    headers.append("Lowdifficultyrating", "0");
+    headers.append("Highdifficultyrating", "11");
     let dat = await fetch("http://localhost:5000/filterLevel", {
       method: "GET",
       headers: headers,
