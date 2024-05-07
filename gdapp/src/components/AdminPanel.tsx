@@ -39,6 +39,54 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
     });
   }
 
+  async function addSong() {
+    let headers = new Headers();
+    headers.append("Token", user);
+    headers.append("Levelid", levelId);
+    headers.append("Songid", songId);
+    headers.append("Songname", songName);
+    headers.append("Songartist", artistName);
+    fetch("http://localhost:5000/admin/manualAddSong", {
+      method: "POST",
+      headers: headers,
+    }).then((response) => {
+      console.log(response);
+      response.text().then();
+      window.location.assign("/");
+    });
+  }
+
+  async function addSongLevel() {
+    let headers = new Headers();
+    headers.append("Token", user);
+    headers.append("Levelid", levelId);
+    headers.append("Songid", songId);
+    fetch("http://localhost:5000/admin/manualAddSong", {
+      method: "POST",
+      headers: headers,
+    }).then((response) => {
+      console.log(response);
+      response.text().then();
+      window.location.assign("/");
+    });
+  }
+
+  async function addWR() {
+    let headers = new Headers();
+    headers.append("Token", user);
+    headers.append("Levelid", levelId);
+    headers.append("Wrid", wrId);
+    headers.append("Wrtime", wrTime);
+    fetch("http://localhost:5000/admin/manualAddSong", {
+      method: "POST",
+      headers: headers,
+    }).then((response) => {
+      console.log(response);
+      response.text().then();
+      window.location.assign("/");
+    });
+  }
+
   return (
     <div>
       <Dialog onClose={() => (openBool = false)} open={openBool}>
@@ -68,7 +116,7 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
                 label="Song Name"
                 variant="outlined"
                 value={songName}
-                onChange={(e) => setLevelId(e.target.value)}
+                onChange={(e) => setSongName(e.target.value)}
               ></TextField>
               <TextField
                 sx={{ m: 2, width: "20vw" }}
@@ -89,7 +137,7 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
               ></TextField>
 
               <Link to="/" reloadDocument>
-                <Button onClick={handleClickClose}>Add Song</Button>
+                <Button onClick={() => addSong()}>Add Song</Button>
               </Link>
 
               <TextField
@@ -109,7 +157,9 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
                 onChange={(e) => setLevelId(e.target.value)}
               ></TextField>
               <Link to="/" reloadDocument>
-                <Button onClick={handleClickClose}>Add Song To Level</Button>
+                <Button onClick={() => addSongLevel()}>
+                  Add Song To Level
+                </Button>
               </Link>
 
               <TextField
@@ -139,7 +189,7 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
                 onChange={(e) => setwrTime(e.target.value)}
               ></TextField>
               <Link to="/" reloadDocument>
-                <Button onClick={handleClickClose}>Add WR To Level</Button>
+                <Button onClick={() => addWR()}>Add WR To Level</Button>
               </Link>
             </Grid>
           </Box>

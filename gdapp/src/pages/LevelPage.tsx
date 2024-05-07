@@ -11,9 +11,10 @@ import RatingPost from "../components/RatingPost";
 
 interface Props {
   user?: any;
+  userName?: any;
 }
 
-function LevelPage({ user }: Props) {
+function LevelPage({ user, userName }: Props) {
   const [levelData, setLevelData] = useState([
     <LevelInfo difficulty={1} songs={[""]}></LevelInfo>,
   ]);
@@ -85,7 +86,7 @@ function LevelPage({ user }: Props) {
 
   return (
     <div>
-      <Navbar user={user}></Navbar>
+      <Navbar user={user} userName={userName}></Navbar>
 
       <Grid
         container

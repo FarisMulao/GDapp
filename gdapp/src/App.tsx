@@ -50,7 +50,7 @@ function App() {
         />
         <Route
           path="/level/:id"
-          element={<LevelPage user={user}></LevelPage>}
+          element={<LevelPage user={user} userName={userName}></LevelPage>}
         />
         <Route path="/signup" element={<SignUpPage></SignUpPage>} />
         <Route
