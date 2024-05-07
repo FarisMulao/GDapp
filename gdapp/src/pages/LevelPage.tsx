@@ -16,10 +16,17 @@ interface Props {
 
 function LevelPage({ user, userName }: Props) {
   const [levelData, setLevelData] = useState([
-    <LevelInfo difficulty={1} songs={[""]}></LevelInfo>,
+    <LevelInfo difficulty={1} songs={[]}></LevelInfo>,
   ]);
 
-  const [ratingData, setRatingData] = useState([<Typography></Typography>]);
+  const [ratingData, setRatingData] = useState<
+    {
+      enjoyment: string;
+      difficulty: string;
+      userTimeRating: string | null;
+      username: string;
+    }[]
+  >([]);
   const { id } = useParams();
   let PLT = 0;
   let replacment: string;
@@ -46,7 +53,7 @@ function LevelPage({ user, userName }: Props) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
+        console.log("HERE", json);
         console.log(json.Platformer);
         PLT = json.isPlatformer;
         const foo = (
@@ -59,8 +66,8 @@ function LevelPage({ user, userName }: Props) {
             wrUsername={json.wrUsername ?? "None"}
             avgEnjoyment={json.avgEnjoyment ?? "Not Available"}
             avgTime={json.avgTime ?? "None"}
-            songs={json.songs.songName ?? "None"}
-            isPlatformer={json.isPlatformer}
+            songs={json.songs ?? []}
+            isPlatformer={json.is_platformer}
             levelName={json.levelName}
           ></LevelInfo>
         );
@@ -77,10 +84,8 @@ function LevelPage({ user, userName }: Props) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
-        const foo = <Typography>{json.Enjoyment}</Typography>;
-        console.log(foo);
-        setRatingData([foo]);
+        console.log("RATING", json);
+        setRatingData(json);
       });
   }
 
@@ -103,10 +108,14 @@ function LevelPage({ user, userName }: Props) {
             levelId={replacment}
             isPlat={PLT ?? 0}
           ></RatingCard>
-
-          <Typography>{ratingData}</Typography>
-
-          <RatingPost></RatingPost>
+          {ratingData.map((e) => (
+            <RatingPost
+              userDifficulty={e.difficulty}
+              userEnjoyment={e.enjoyment}
+              userTime={e.userTimeRating ?? "NA"}
+              userName={e.username}
+            ></RatingPost>
+          ))}
         </Box>
       </Grid>
     </div>

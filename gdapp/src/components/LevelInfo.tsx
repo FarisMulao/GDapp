@@ -21,7 +21,7 @@ interface Props {
   wrTime?: number;
   avgTime?: number;
   isPlatformer?: number;
-  songs: string[];
+  songs: { artistName: string; songName: string }[];
   avgEnjoyment?: number;
 }
 
@@ -149,7 +149,14 @@ export const LevelInfo = ({
               <br />
               Enjoyment: {avgEnjoyment}
               <br />
-              WR: {wrTime} Seconds By {wrUsername}
+              WR:
+              {isPlatformer === 1 ? (
+                <>
+                  {wrTime} Seconds By {wrUsername}
+                </>
+              ) : (
+                ` Not Available`
+              )}
               <br />
               Average Time: {avgTime}
               <br />
@@ -164,7 +171,10 @@ export const LevelInfo = ({
                 component="div"
                 sx={{ color: "#F3BB3B" }}
               >
-                Song: {songs}
+                Song{songs.length > 1 ? "s" : ""}:{" "}
+                {songs
+                  .map((e) => `${e.songName} by ${e.artistName}`)
+                  .join(", ")}
               </Typography>
             </Box>
           </CardContent>

@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
+import RatingPost from "./RatingPost";
 
 interface Props {
   onClick?: () => void;
@@ -35,6 +36,7 @@ export const RatingCard = ({ onClick, user, levelId, isPlat }: Props) => {
       body: formData,
     }).then((response) => {
       console.log(response);
+      window.location.assign("/level/" + levelId);
       response.text().then();
     });
   }
@@ -50,6 +52,7 @@ export const RatingCard = ({ onClick, user, levelId, isPlat }: Props) => {
       body: formData,
     }).then((response) => {
       console.log(response);
+      window.location.assign("/level/" + levelId);
       response.text().then();
     });
   }
@@ -92,7 +95,7 @@ export const RatingCard = ({ onClick, user, levelId, isPlat }: Props) => {
         spacing={0}
         direction="column"
         alignItems="center"
-        sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
+        sx={{ minHeight: "10vh", bgcolor: "#B3ABB1" }}
       >
         <Button color="secondary" onClick={postData}>
           Post

@@ -204,12 +204,12 @@ export const NavBar = ({ onClick, value, openBool, user, userName }: Props) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem key="username" onClick={handleAdmin}>
+                <MenuItem key="username">
                   <Typography textAlign="center">
                     {user ?? "No User"}
                   </Typography>
                 </MenuItem>
-                <MenuItem key="username 2" onClick={handleAdmin}>
+                <MenuItem key="username 2">
                   <Typography textAlign="center">
                     {userName ?? "No Username"}
                   </Typography>
