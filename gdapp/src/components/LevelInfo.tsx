@@ -20,8 +20,8 @@ interface Props {
   wrUsername?: string;
   wrTime?: number;
   avgTime?: number;
-  isPlatformer?: boolean;
-  songs?: string[];
+  isPlatformer?: number;
+  songs: string[];
   avgEnjoyment?: number;
 }
 
@@ -83,11 +83,12 @@ export const LevelInfo = ({
   let temp: any = difficulty;
   let CX: any = imageMap.get(temp);
   let type = "";
-  if (isPlatformer) {
+  if (isPlatformer === 1) {
     type = "Platformer";
-  } else {
+  } else if (isPlatformer === 0) {
     type = "Normal";
   }
+  console.log(isPlatformer);
   return (
     <div>
       <Card

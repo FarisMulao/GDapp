@@ -3,13 +3,16 @@ import { TextField } from "@mui/material";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import Button from "@mui/material/Button";
+import { Grid } from "@mui/material";
 
 interface Props {
   onClick?: () => void;
   user?: any;
+  levelId: string;
+  isPlat: number;
 }
 
-export const RatingCard = ({ onClick, user }: Props) => {
+export const RatingCard = ({ onClick, user, levelId, isPlat }: Props) => {
   const [userEnjoyment, setUserEnjoyment] = useState("");
   const [userDifficulty, setUserDifficulty] = useState("");
   const [userTime, setUserTime] = useState("");
@@ -21,10 +24,30 @@ export const RatingCard = ({ onClick, user }: Props) => {
     formData.append("Levelid", levelId);
     formData.append("Enjoyment", userEnjoyment);
     formData.append("Difficultyrating", userDifficulty);
-    formData.append("Usertimerating", userTime);
+    console.log(isPlat);
+    if (isPlat === 1) {
+      formData.append("Usertimerating", userTime);
+    }
+
     fetch("http://localhost:5000/addRating", {
       method: "POST",
       headers: headers,
+      body: formData,
+    }).then((response) => {
+      console.log(response);
+      response.text().then();
+    });
+  }
+
+  async function deletePostData() {
+    let headers = new Headers();
+    headers.append("Token", user);
+    const formData = new FormData();
+    formData.append("Levelid", levelId);
+    fetch("http://localhost:5000/deleteRating", {
+      method: "POST",
+      headers: headers,
+      body: formData,
     }).then((response) => {
       console.log(response);
       response.text().then();
@@ -52,19 +75,33 @@ export const RatingCard = ({ onClick, user }: Props) => {
         onChange={(e) => setUserDifficulty(e.target.value)}
       ></TextField>
 
-      <TextField
-        sx={{ m: 2, width: "10vw" }}
-        id="outlined-basic"
-        label="Completion Time"
-        variant="filled"
-        value={userTime}
-        color="secondary"
-        onChange={(e) => setUserTime(e.target.value)}
-      ></TextField>
+      {{ isPlat } && (
+        <TextField
+          sx={{ m: 2, width: "10vw" }}
+          id="outlined-basic"
+          label="Completion Time"
+          variant="filled"
+          value={userTime}
+          color="secondary"
+          onChange={(e) => setUserTime(e.target.value)}
+        ></TextField>
+      )}
 
-      <Button color="secondary" onClick={postData}>
-        Post
-      </Button>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
+      >
+        <Button color="secondary" onClick={postData}>
+          Post
+        </Button>
+
+        <Button color="secondary" onClick={deletePostData}>
+          Delete Previous Post
+        </Button>
+      </Grid>
     </div>
   );
 };
