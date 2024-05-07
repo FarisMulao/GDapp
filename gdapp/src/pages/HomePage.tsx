@@ -1,18 +1,24 @@
 import Navbar from "../components/Navbar";
 import LevelCard from "../components/LevelCard";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import SignUp from "../components/SignUp";
+import LevelFilter from "../components/LevelFilter";
+import { TextField } from "@mui/material";
 
 interface Props {
   user: any;
+  userName: any;
 }
 
-function HomePage({ user }: Props) {
+function HomePage({ user, userName }: Props) {
   const [levelData, setLevelData] = useState([
     <LevelCard difficulty={1}></LevelCard>,
   ]);
+
+  const [lowData, setLowData] = useState("0");
+  const [highData, setHighData] = useState("11");
 
   useEffect(() => {
     getLevels();
@@ -20,8 +26,8 @@ function HomePage({ user }: Props) {
   //for /filterLevel -- GET
   async function getLevels() {
     let headers = new Headers();
-    headers.append("Lowdifficultyrating", "0");
-    headers.append("Highdifficultyrating", "11");
+    headers.append("Lowdifficultyrating", lowData);
+    headers.append("Highdifficultyrating", highData);
     let dat = await fetch("http://localhost:5000/filterLevel", {
       method: "GET",
       headers: headers,
@@ -46,8 +52,7 @@ function HomePage({ user }: Props) {
 
   return (
     <div>
-      <Navbar user={user}></Navbar>
-      {user}
+      <Navbar user={user} userName={userName}></Navbar>
       <Grid
         container
         spacing={0}
@@ -55,6 +60,39 @@ function HomePage({ user }: Props) {
         alignItems="center"
         sx={{ minHeight: "100vh", bgcolor: "#B3ABB1" }}
       >
+        <div>
+          <TextField
+            sx={{ m: 2, width: "20vw" }}
+            id="outlined-basic"
+            label="Difficulty Low"
+            variant="outlined"
+            value={lowData}
+            color="secondary"
+            onChange={(e) => setLowData(e.target.value)}
+          ></TextField>
+
+          <TextField
+            sx={{ m: 2, width: "20vw" }}
+            id="outlined-basic"
+            label="Difficulty High"
+            variant="outlined"
+            value={highData}
+            color="secondary"
+            onChange={(e) => setHighData(e.target.value)}
+          ></TextField>
+
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            sx={{ bgcolor: "#B3ABB1" }}
+          >
+            <Button color="secondary" onClick={getLevels}>
+              Filter
+            </Button>
+          </Grid>
+        </div>
         {levelData}
       </Grid>
     </div>

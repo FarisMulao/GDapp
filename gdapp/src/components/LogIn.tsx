@@ -13,13 +13,15 @@ interface Props {
   userName?: string;
   password?: string;
   setUser: (user: any) => void;
+  setUserName: (userName: string) => void;
 }
 
-export const LogIn = ({ userName, password, setUser }: Props) => {
+export const LogIn = ({ userName, password, setUser, setUserName }: Props) => {
   const [userNameData, setUserNameData] = React.useState("");
   const [passwordData, setPasswordData] = React.useState("");
   userName = userNameData;
   password = passwordData;
+  setUserName(userNameData);
   async function logInUser() {
     let headers = new Headers();
     headers.append("Username", userNameData);

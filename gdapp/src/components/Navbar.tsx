@@ -21,9 +21,10 @@ interface Props {
   openBool?: boolean;
   onClick?: () => void;
   user?: any;
+  userName?: any;
 }
 
-export const NavBar = ({ onClick, value, openBool, user }: Props) => {
+export const NavBar = ({ onClick, value, openBool, user, userName }: Props) => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -175,7 +176,11 @@ export const NavBar = ({ onClick, value, openBool, user }: Props) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="USER" src="/static/images/broken-user.jpg" />
+                  <Avatar
+                    sx={{ bgcolor: "#F3BB3B", color: "#342F31" }}
+                    alt={userName}
+                    src="/static/images/broken-user.jpg"
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -197,6 +202,11 @@ export const NavBar = ({ onClick, value, openBool, user }: Props) => {
                 <MenuItem key="username" onClick={handleAdmin}>
                   <Typography textAlign="center">
                     {user ?? "No User"}
+                  </Typography>
+                </MenuItem>
+                <MenuItem key="username 2" onClick={handleAdmin}>
+                  <Typography textAlign="center">
+                    {userName ?? "No Username"}
                   </Typography>
                 </MenuItem>
                 <MenuItem key="admin panel" onClick={handleAdmin}>

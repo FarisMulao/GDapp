@@ -8,9 +8,10 @@ import LogIn from "../components/LogIn";
 interface Props {
   username?: string;
   setUser: (user: any) => void;
+  setUserName: (userName: string) => void;
 }
 
-function LogInPage({ setUser }: Props) {
+function LogInPage({ setUser, setUserName }: Props) {
   return (
     <div>
       <Navbar></Navbar>
@@ -23,7 +24,7 @@ function LogInPage({ setUser }: Props) {
         justifyContent="center"
         sx={{ minHeight: "90.5vh", bgcolor: "#B3ABB1" }}
       >
-        <LogIn setUser={setUser}></LogIn>
+        <LogIn setUser={setUser} setUserName={setUserName}></LogIn>
       </Grid>
     </div>
   );
