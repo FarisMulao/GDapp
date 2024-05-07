@@ -35,7 +35,6 @@ export const LevelInfo = ({
   length,
   wrUsername,
   wrTime,
-  avgTime,
   isPlatformer,
   songs,
   avgEnjoyment,
@@ -158,8 +157,6 @@ export const LevelInfo = ({
               ) : (
                 ` Not Available`
               )}
-              <br />
-              Average Time: {avgTime}
               <br />
               Type: {type}
               <br />

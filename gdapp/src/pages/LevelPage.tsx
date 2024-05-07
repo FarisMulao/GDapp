@@ -66,7 +66,6 @@ function LevelPage({ user, userName }: Props) {
             wrTime={json.wrTime ?? "0"}
             wrUsername={json.wrUsername ?? "None"}
             avgEnjoyment={json.avgEnjoyment ?? "Not Available"}
-            avgTime={json.avgTime ?? "None"}
             songs={json.songs ?? []}
             isPlatformer={json.is_platformer}
             levelName={json.levelName}

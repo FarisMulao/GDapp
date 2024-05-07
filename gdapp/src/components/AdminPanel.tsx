@@ -61,7 +61,7 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
     headers.append("Token", user);
     headers.append("Levelid", levelId);
     headers.append("Songid", songId);
-    fetch("http://localhost:5000/admin/manualAddSong", {
+    fetch("http://localhost:5000/admin/manualAddSongLevel", {
       method: "POST",
       headers: headers,
     }).then((response) => {
@@ -77,7 +77,7 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
     headers.append("Levelid", levelId);
     headers.append("Wrid", wrId);
     headers.append("Wrtime", wrTime);
-    fetch("http://localhost:5000/admin/manualAddSong", {
+    fetch("http://localhost:5000/admin/addWr", {
       method: "POST",
       headers: headers,
     }).then((response) => {
@@ -136,9 +136,7 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
                 onChange={(e) => setArtistName(e.target.value)}
               ></TextField>
 
-              <Link to="/" reloadDocument>
-                <Button onClick={() => addSong()}>Add Song</Button>
-              </Link>
+              <Button onClick={() => addSong()}>Add Song</Button>
 
               <TextField
                 sx={{ m: 2, width: "20vw" }}
@@ -156,11 +154,8 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
                 value={levelId}
                 onChange={(e) => setLevelId(e.target.value)}
               ></TextField>
-              <Link to="/" reloadDocument>
-                <Button onClick={() => addSongLevel()}>
-                  Add Song To Level
-                </Button>
-              </Link>
+
+              <Button onClick={() => addSongLevel()}>Add Song To Level</Button>
 
               <TextField
                 sx={{ m: 2, width: "20vw" }}
@@ -188,9 +183,7 @@ export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
                 value={wrTime}
                 onChange={(e) => setwrTime(e.target.value)}
               ></TextField>
-              <Link to="/" reloadDocument>
-                <Button onClick={() => addWR()}>Add WR To Level</Button>
-              </Link>
+              <Button onClick={() => addWR()}>Add WR To Level</Button>
             </Grid>
           </Box>
         </Container>
