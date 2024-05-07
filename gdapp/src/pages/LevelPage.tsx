@@ -28,7 +28,7 @@ function LevelPage({ user, userName }: Props) {
     }[]
   >([]);
   const { id } = useParams();
-  let PLT = 0;
+  const [PLT, setPLT] = useState(2);
   let replacment: string;
   console.log(id);
   if (id === undefined || id === null) {
@@ -54,8 +54,9 @@ function LevelPage({ user, userName }: Props) {
       .then((response) => response.json())
       .then((json) => {
         console.log("HERE", json);
-        console.log(json.Platformer);
-        PLT = json.isPlatformer;
+
+        setPLT(json.is_platformer);
+        console.log("PLT HERE", json.is_platformer, "PLT: ", PLT);
         const foo = (
           <LevelInfo
             levelId={replacment}

@@ -25,10 +25,9 @@ export const RatingCard = ({ onClick, user, levelId, isPlat }: Props) => {
     formData.append("Levelid", levelId);
     formData.append("Enjoyment", userEnjoyment);
     formData.append("Difficultyrating", userDifficulty);
-    console.log(isPlat);
     if (isPlat === 1) {
       formData.append("Usertimerating", userTime);
-    }
+    } //could be correct
 
     fetch("http://localhost:5000/addRating", {
       method: "POST",

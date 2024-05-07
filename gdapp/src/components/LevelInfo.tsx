@@ -85,6 +85,7 @@ export const LevelInfo = ({
   let type = "";
   if (isPlatformer === 1) {
     type = "Platformer";
+    tempLength = 5;
   } else if (isPlatformer === 0) {
     type = "Normal";
   }
