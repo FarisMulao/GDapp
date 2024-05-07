@@ -244,8 +244,14 @@ def addRating():
     if "Usertimerating" in request.form.keys():
         userTimeRating = request.form.get('Usertimerating')
         isUserTimeRating = True
+        userTimeRating = int(userTimeRating)
     enjoyment = request.form.get("Enjoyment")
     difficultyRating = request.form.get("Difficultyrating")
+
+    levelId = int(levelId)
+    enjoyment = int(enjoyment)
+    difficultyRating = int(difficultyRating)
+  
 
     # Verify that the level exists and that its type matches what is expected
     cursor = mysql.connection.cursor()
