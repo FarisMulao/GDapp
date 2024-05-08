@@ -19,5 +19,6 @@
 
 ## Frontend Setup Procedure
 - After the backend is set up
+- in the console ```npm install react-scripts```
 - cd into gdapp ```cd gdapp```
 - type ```npm start``` into the console
