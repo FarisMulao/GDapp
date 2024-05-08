@@ -18,3 +18,5 @@
 - The functionTester script will insert admin credentials and some levels, so everything should be ready
 
 ## Frontend Setup Procedure
+- After the backend is set up cd into gdapp
+- type ```npm start``` into the console
