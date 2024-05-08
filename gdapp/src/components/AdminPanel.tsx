@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Button, Container, Dialog, Grid, TextField } from "@mui/material";
-import { Link } from "react-router-dom";
 
 interface Props {
   children?: string;
@@ -11,19 +10,12 @@ interface Props {
 }
 
 export const AdminPanel = ({ onClick, openBool, children, user }: Props) => {
-  const [open, setOpen] = React.useState<boolean>(true);
-  const [userName, setUserName] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const [levelId, setLevelId] = React.useState("");
   const [songId, setSongId] = React.useState("");
   const [songName, setSongName] = React.useState("");
   const [artistName, setArtistName] = React.useState("");
   const [wrId, setWrId] = React.useState("");
   const [wrTime, setwrTime] = React.useState("");
-
-  const handleClickClose = () => {
-    openBool = false;
-  };
 
   async function addLevel() {
     let headers = new Headers();

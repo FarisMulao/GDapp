@@ -59,10 +59,6 @@ export const NavBar = ({ onClick, value, openBool, user, userName }: Props) => {
     setAnchorElUser(null);
   };
 
-  const closeAdmin = () => {
-    setAdminOpen(false);
-  };
-
   return (
     <div>
       <AppBar position="static" sx={{ bgcolor: "#342F31", color: "#F3BB3B" }}>

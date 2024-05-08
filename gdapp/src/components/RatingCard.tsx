@@ -1,10 +1,8 @@
 import * as React from "react";
 import { TextField } from "@mui/material";
-import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
-import RatingPost from "./RatingPost";
 
 interface Props {
   onClick?: () => void;

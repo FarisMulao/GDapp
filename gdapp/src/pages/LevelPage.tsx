@@ -1,11 +1,9 @@
 import Navbar from "../components/Navbar";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
 import LevelInfo from "../components/LevelInfo";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { LineStyle } from "@mui/icons-material";
 import RatingCard from "../components/RatingCard";
 import RatingPost from "../components/RatingPost";
 

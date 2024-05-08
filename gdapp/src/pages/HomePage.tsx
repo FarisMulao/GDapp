@@ -2,9 +2,6 @@ import Navbar from "../components/Navbar";
 import LevelCard from "../components/LevelCard";
 import { Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import SignUp from "../components/SignUp";
-import LevelFilter from "../components/LevelFilter";
 import { TextField } from "@mui/material";
 
 interface Props {
